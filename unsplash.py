@@ -2,8 +2,7 @@
 
 import requests,re,os
 from bs4 import BeautifulSoup
-from PIL import Image
-from StringIO import StringIO
+
 headers={
     'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     'Accept-Encoding':'gzip, deflate, sdch',
@@ -30,9 +29,6 @@ def mkdir(path):
         print path+" is already existed!"
 
 def download_image(image_url,image_name):
-    # r=requests.get(image_url,headers=headers)
-    # image=Image.open(StringIO(r.content))
-    # image.save(image_name,"JPEG")
     with open(image_name+'.jpeg', 'wb') as f:
             f.write(requests.get(image_url,headers = headers).content)
 

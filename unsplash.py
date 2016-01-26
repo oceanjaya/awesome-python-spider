@@ -29,6 +29,7 @@ def mkdir(path):
         print path+" is already existed!"
 
 def download_image(image_url,image_name):
+
     with open(image_name+'.jpeg', 'wb') as f:
             f.write(requests.get(image_url,headers = headers).content)
 
@@ -64,9 +65,9 @@ def unsplash(save_path):
         for image_description_url in image_description_urls:
             image_description_url="https://unsplash.com"+image_description_url['href']
             image_description=get_image_description(image_description_url)
-            image_name="Collection # "+str(page_num)+image_description
-            print "Downloading the "+str(image_id)+"th image : "+image_name
-            print image_description_url+"/download"
+            image_name="Collection#"+str(page_num)+" ("+image_description_url.split('/')[4]+")"+image_description
+            print "Downloading the "+str(image_id)+"th image: "+image_name
+            print "From "+image_description_url+"/download"
             download_image(image_description_url+"/download",save_path+'/'+image_name)
             image_id+=1
     print "Finished!"
@@ -74,8 +75,8 @@ def unsplash(save_path):
 
 if __name__ =="__main__":
 
-    save_path=str(raw_input("Please Input the save path(Empty to ./unsplash): "))
+    save_path=str(raw_input("Please Input the save path(Empty to ../unsplash): "))
     if save_path=='':
-        save_path='./unsplash'
+        save_path='../unsplash'
     mkdir(save_path)
     unsplash(save_path)
